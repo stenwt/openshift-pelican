@@ -1,0 +1,13 @@
+# Prepare cache, if it doesn't exist
+if [ ! -d ${OPENSHIFT_DATA_DIR}/cache/ ] ; then
+  mkdir -p ${OPENSHIFT_DATA_DIR}/cache/
+fi
+
+# Generate site
+if [ -d ${OPENSHIFT_DATA_DIR}/public ] ; then
+  pelican ${OPENSHIFT_REPO_DIR}/data -o ${OPENSHIFT_DATA_DIR}/public -s ${OPENSHIFT_REPO_DIR}/conf/pelicanconf.py
+  # Make directory as it does not exist then generate the site
+else
+  mkdir -p ${OPENSHIFT_DATA_DIR}/public
+  pelican ${OPENSHIFT_REPO_DIR}/data -o ${OPENSHIFT_DATA_DIR}/public -s ${OPENSHIFT_REPO_DIR}/conf/pelicanconf.py
+fi
